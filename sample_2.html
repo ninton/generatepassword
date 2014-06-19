@@ -1,0 +1,24 @@
+password: <input type="password" name="pw1" id="pw1" /><br />
+confirm: <input type="password" name="pw2" id="pw2" /><br />
+<input type="button" id="btn_genpw" value="generate password" /> <input type="text" id="genpw" />
+<input type="button" id="btn_copy" value="copy" /><br />
+
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js" /></script>
+<script type="text/javascript" src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js" /></script>
+<script type="text/javascript" src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js" /></script>
+<script type="text/javascript" src="password_generator_server_random.php" /></script>
+<script type="text/javascript" src="jquery.generatepassword.js" /></script>
+<script type="text/javascript">
+$('#btn_genpw').generatePassword({
+  output : ['#genpw'],
+  chars  : '0-9A-Za-z',
+  length : 16
+});
+
+$('#btn_copy').click( function() {
+  var pw = $('#genpw').val();
+  $('#pw1').val( pw );
+  $('#pw2').val( pw );
+});
+
+</script>
