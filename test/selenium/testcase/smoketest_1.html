@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://flickpass.net.localdomain/" />
+<title>smoketest_1</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">smoketest_1</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>${BASE_URL}smoketest_1.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTitle</td>
+	<td>smoketest_1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td></td>
+</tr>
+<!--# password 1st-->
+<tr>
+	<td>click</td>
+	<td>id=btn_pw</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeValue</td>
+	<td>id=password</td>
+	<td>PW1</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>&quot;${PW1}&quot;.search(/^[0-9A-Za-z]{16}$/)</td>
+	<td>0</td>
+</tr>
+<!--# password 2nd-->
+<tr>
+	<td>click</td>
+	<td>id=btn_pw</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeValue</td>
+	<td>id=password</td>
+	<td>PW2</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>&quot;${PW2}&quot;.search(/^[0-9A-Za-z]{16}$/)</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyNotEval</td>
+	<td>&quot;${PW2}&quot;</td>
+	<td>${PW1}</td>
+</tr>
+<!--# PIN 1st-->
+<tr>
+	<td>click</td>
+	<td>id=btn_pin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeValue</td>
+	<td>id=password</td>
+	<td>PW1</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>&quot;${PW1}&quot;.search(/^[0-9]{4}$/)</td>
+	<td>0</td>
+</tr>
+<!--# PIN 2nd-->
+<tr>
+	<td>click</td>
+	<td>id=btn_pin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeValue</td>
+	<td>id=password</td>
+	<td>PW2</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>&quot;${PW2}&quot;.search(/^[0-9]{4}$/)</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyNotEval</td>
+	<td>&quot;${PW2}&quot;</td>
+	<td>${PW1}</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
