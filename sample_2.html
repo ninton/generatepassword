@@ -10,9 +10,9 @@ confirm: <input type="password" name="pw2" id="pw2" /><br />
 <script type="text/javascript" src="jquery.generatepassword.js" /></script>
 <script type="text/javascript">
 $('#btn_genpw').generatePassword({
-  output : ['#genpw'],
-  chars  : '0-9A-Za-z',
-  length : 16
+  output  : ['#genpw'],
+  pwchars : '0-9A-Za-z',
+  pwlen   : 16
 });
 
 $('#btn_copy').click( function() {

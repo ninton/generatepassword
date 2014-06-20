@@ -22,15 +22,15 @@ function PasswordGenerator () {
 	this.client_random = '';
 	this.rand_arr      = [];
 	
-	this.expandChars = function () {
-		var chars = this.options.chars;
+	this.expandPwchars = function () {
+		var chars = this.options.pwchars;
 		
 		chars = chars.replace( /0-9/g, '0123456789' );
 		chars = chars.replace( /A-Z/g, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' );
 		chars = chars.replace( /a-z/g, 'abcdefghijklmnopqrstuvwxyz' );		
 		
-		this.options.chars = chars;
-	}
+		this.options.pwchars = chars;
+	};
 	
 	this.churn = function ( i_randEvent ) {
 		if ( typeof i_randEvent == 'undefined' || '' == i_randEvent ) {
@@ -44,20 +44,20 @@ function PasswordGenerator () {
 		if ( this.pool == old_pool ) {
 			throw 'assert( this.pool == old_pool )';
 		}
-	}
+	};
 
 	this.churnByServerRandom = function () {
 		if ( typeof PASSWORD_GENERATOR_SERVER_RANDOM != 'undefined' ) {
 			this.churn( PASSWORD_GENERATOR_SERVER_RANDOM );
 		}
-	}
+	};
 
 	this.churnByClientRandom = function ( event ) {
 		if ( this.client_random != '' ) {
 			this.churn( this.client_random );
 			this.client_random = '';
 		}
-	}
+	};
 	
 	this.churnByClientRandomAtFirst = function () {
 		var arr = [];
@@ -85,7 +85,7 @@ function PasswordGenerator () {
 
 		var buf = arr.join('');
 		this.churn( buf );
-	}
+	};
 	
 	this.collectClientRandom = function ( event ) {
 		if ( 1000 < this.client_random.length ) {
@@ -108,19 +108,19 @@ function PasswordGenerator () {
 			
 		var buf = arr.join('');
 		this.client_random += buf;
-	}
+	};
 	
 	this.generatePassword = function () {
 		var arr;
 		var	r;
 		
-		while ( this.pw.length < this.options.length ) {
+		while ( this.pw.length < this.options.pwlen ) {
 			r = this.generateRandomByte();
-			if ( r < this.options.chars.length ) {
-				this.pw += this.options.chars[r];
+			if ( r < this.options.pwchars.length ) {
+				this.pw += this.options.pwchars[r];
 			}
 		}
-	}
+	};
 
 	this.generateRandomByte = function () {
 		if ( 0 == this.rand_arr.length ) {
@@ -129,7 +129,7 @@ function PasswordGenerator () {
 		
 		var r = this.rand_arr.shift();
 		return r;
-	}
+	};
 	
 	this.generateRandomByteArray = function () {
 		++this.cnt;
@@ -140,7 +140,7 @@ function PasswordGenerator () {
 		for ( var i = 0; i < s.length; ++i ) {
 			this.rand_arr.push( s.charCodeAt(i) );
 		}		
-	}
+	};
 	
 	this.hash = function ( i_s1, i_s2 ) {
 		var hasher = CryptoJS.algo.SHA256.create();
@@ -152,23 +152,23 @@ function PasswordGenerator () {
 		var buf = CryptoJS.enc.Latin1.stringify(words);
 		var s = String(buf);
 		return s;
-	}
+	};
 	
 	this.init = function () {
 		this.churnByServerRandom();
 		this.churnByClientRandomAtFirst();
-	}
+	};
 	
 	this.main = function ( i_options ) {
 		this.options = i_options;
 		this.pw = '';
 		
 		this.churnByClientRandom();
-		this.expandChars();
+		this.expandPwchars();
 		this.generatePassword();
 		
 		return this.pw;
-	}	
+	};	
 }
 
 (function($) {
@@ -181,9 +181,9 @@ function PasswordGenerator () {
 	
 	$.fn.generatePassword = function( i_options ){
 		var defaults = {
-			'output' : [],
-			'chars'  : '0-9A-Za-z',
-			'length' : 8,
+			'output'  : [],
+			'pwchars' : '0-9A-Za-z',
+			'pwlen'   : 8,
 		};
 		var options = $.extend( defaults, i_options );
 		
@@ -194,5 +194,5 @@ function PasswordGenerator () {
 				$( options.output[i] ).val( pw );
 			}
 		});	
-	}
+	};
 })(jQuery);
