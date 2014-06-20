@@ -1,0 +1,8 @@
+*.bak
+*.tmp
+*.log
+/.buildpath
+/.elasticbeanstalk
+/.metadata
+/.project
+/.settings
