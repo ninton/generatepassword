@@ -15,12 +15,20 @@
 function PasswordGenerator () {
 	// reference: Applied Cryptography, Second Edition, Bruce Schneier
 	// 17.14 Real Random-seaquence Generators
+	this.MAX_PWLEN          = 1000;
+	this.MAX_PWCHARS_LENGTH = 256;
+	
 	this.cnt           = 0;
+	this.client_random = '';
 	this.options       = {};
 	this.pool          = 'random pool';
 	this.pw            = '';
-	this.client_random = '';
 	this.rand_arr      = [];
+
+	this.error = function ( i_mesg ) {
+		alert( 'error : ' + i_mesg );
+		throw i_mesg;
+	}
 	
 	this.expandPwchars = function () {
 		var chars = this.options.pwchars;
@@ -163,12 +171,21 @@ function PasswordGenerator () {
 		this.options = i_options;
 		this.pw = '';
 		
+		this.validateOptions();
 		this.churnByClientRandom();
 		this.expandPwchars();
 		this.generatePassword();
 		
 		return this.pw;
-	};	
+	};
+	
+	this.validateOptions = function () {
+		if ( this.MAX_PWLEN < this.options.pwlen ) {
+			this.error( "pwlen > " + this.MAX_PWLEN );
+		} else if ( this.MAX_PWCHARS_LENGTH < this.options.pwchars.length ) {
+			this.error( "pwchars.length > " + this.MAX_PWCHARS_LENGTH );
+		}
+	}
 }
 
 (function($) {

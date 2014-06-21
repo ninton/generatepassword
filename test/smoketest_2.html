@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>smoketest_2</title>
+</head>
+<body>
+<textarea id="password" /></textarea><br />
+<input type="button" id="btn_pw" value="pwchars too long" />
+<input type="button" id="btn_pw2" value="pwlen too large" />
+<input type="button" id="btn_pw3" value="success" />
+
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js" /></script>
+<script type="text/javascript" src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js" /></script>
+<script type="text/javascript" src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js" /></script>
+<script type="text/javascript" src="../password_generator_server_random.php" /></script>
+<script type="text/javascript" src="../jquery.generatepassword.js" /></script>
+<script type="text/javascript">
+// testcase 1
+// pwchars.length > 256
+// shuold alert( "pwchars > 256" )
+$('#btn_pw').generatePassword({
+  output  : ['#password'],
+  pwchars : 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' +
+            'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+  pwlen   : 100
+});
+
+// testcase 2
+// pwchars.length > 1000
+// shuold alert( "pwchars.length > 256" )
+$('#btn_pw2').generatePassword({
+  output  : ['#password'],
+  pwchars : 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB',
+  pwlen   : 1001
+});
+
+// testcase 3
+// pwchars.length = 256
+// sucess and password will contain pwchars[0] = 'B', pwchars[255] = 'C'
+$('#btn_pw3').generatePassword({
+  output  : ['#password'],
+  pwchars : 'BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC',
+  pwlen   : 1000
+});
+</script>
+</body>
+</html>

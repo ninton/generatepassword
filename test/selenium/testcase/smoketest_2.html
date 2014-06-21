@@ -4,21 +4,22 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="https://flickpass.net.localdomain/" />
-<title>smoketest_1</title>
+<title>smoketest_2</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">smoketest_1</td></tr>
+<tr><td rowspan="1" colspan="3">smoketest_2</td></tr>
 </thead><tbody>
+<!--# gihub issue #2 -->
 <tr>
 	<td>open</td>
-	<td>${BASE_URL}smoketest_1.html</td>
+	<td>${BASE_URL}smoketest_2.html</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTitle</td>
-	<td>smoketest_1</td>
+	<td>smoketest_2</td>
 	<td></td>
 </tr>
 <tr>
@@ -26,10 +27,32 @@
 	<td>id=password</td>
 	<td></td>
 </tr>
-<!--# password 1st-->
+<!--# pwchars too long-->
 <tr>
 	<td>click</td>
 	<td>id=btn_pw</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyAlert</td>
+	<td>error : pwchars.length &gt; 256</td>
+	<td></td>
+</tr>
+<!--# pwlen too large-->
+<tr>
+	<td>click</td>
+	<td>id=btn_pw2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyAlert</td>
+	<td>error : pwlen &gt; 1000</td>
+	<td></td>
+</tr>
+<!--# success-->
+<tr>
+	<td>click</td>
+	<td>id=btn_pw3</td>
 	<td></td>
 </tr>
 <tr>
@@ -39,67 +62,28 @@
 </tr>
 <tr>
 	<td>verifyEval</td>
-	<td>0 &lt;= &quot;${PW1}&quot;.search(/^[0-9A-Za-z]{16}$/)</td>
+	<td>0 &lt;= &quot;${PW1}&quot;.search(/^[ABC]{1000}$/)</td>
 	<td>true</td>
 </tr>
-<!--# password 2nd-->
-<tr>
-	<td>click</td>
-	<td>id=btn_pw</td>
-	<td></td>
-</tr>
-<tr>
-	<td>storeValue</td>
-	<td>id=password</td>
-	<td>PW2</td>
-</tr>
+<!--# contain 'A'-->
 <tr>
 	<td>verifyEval</td>
-	<td>0 &lt;= &quot;${PW2}&quot;.search(/^[0-9A-Za-z]{16}$/)</td>
+	<td>0 &lt;= &quot;${PW1}&quot;.search(/A/)</td>
 	<td>true</td>
 </tr>
-<tr>
-	<td>verifyNotEval</td>
-	<td>&quot;${PW2}&quot;</td>
-	<td>${PW1}</td>
-</tr>
-<!--# PIN 1st-->
-<tr>
-	<td>click</td>
-	<td>id=btn_pin</td>
-	<td></td>
-</tr>
-<tr>
-	<td>storeValue</td>
-	<td>id=password</td>
-	<td>PW1</td>
-</tr>
+<!--# contain 'B' (options.pwchars[0])-->
 <tr>
 	<td>verifyEval</td>
-	<td>0 &lt;= &quot;${PW1}&quot;.search(/^[0-9]{4}$/)</td>
+	<td>0 &lt;= &quot;${PW1}&quot;.search(/B/)</td>
 	<td>true</td>
 </tr>
-<!--# PIN 2nd-->
-<tr>
-	<td>click</td>
-	<td>id=btn_pin</td>
-	<td></td>
-</tr>
-<tr>
-	<td>storeValue</td>
-	<td>id=password</td>
-	<td>PW2</td>
-</tr>
+<!--# contain 'C' (options.pwchars[255])-->
 <tr>
 	<td>verifyEval</td>
-	<td>0 &lt;= &quot;${PW2}&quot;.search(/^[0-9]{4}$/)</td>
+	<td>0 &lt;= &quot;${PW1}&quot;.search(/C/)</td>
 	<td>true</td>
 </tr>
-<tr>
-	<td>verifyNotEval</td>
-	<td>&quot;${PW2}&quot;</td>
-	<td>${PW1}</td>
-</tr>
+
 </tbody></table>
 </body>
 </html>
