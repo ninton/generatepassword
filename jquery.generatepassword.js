@@ -1,5 +1,5 @@
 /**
- * jquery.generatepassword.js v0.1
+ * jquery.generatepassword.js v0.2
  * http://www.flickpass.com
  *
  * Copyright 2014, Aoki Makoto, Ninton G.K. http://www.ninton.co.jp
