@@ -20,26 +20,11 @@ function PasswordGenerator () {
 	
 	this.cnt           = 0;
 	this.client_random = '';
-	this.options       = {};
+	this.options       = new Object();
 	this.pool          = 'random pool';
 	this.pw            = '';
 	this.rand_arr      = [];
 
-	this.error = function ( i_mesg ) {
-		alert( 'error : ' + i_mesg );
-		throw i_mesg;
-	}
-	
-	this.expandPwchars = function () {
-		var chars = this.options.pwchars;
-		
-		chars = chars.replace( /0-9/g, '0123456789' );
-		chars = chars.replace( /A-Z/g, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' );
-		chars = chars.replace( /a-z/g, 'abcdefghijklmnopqrstuvwxyz' );		
-		
-		this.options.pwchars = chars;
-	};
-	
 	this.churn = function ( i_randEvent ) {
 		if ( typeof i_randEvent == 'undefined' || '' == i_randEvent ) {
 			return ;
@@ -60,7 +45,7 @@ function PasswordGenerator () {
 		}
 	};
 
-	this.churnByClientRandom = function ( event ) {
+	this.churnByClientRandom = function () {
 		if ( this.client_random != '' ) {
 			this.churn( this.client_random );
 			this.client_random = '';
@@ -116,6 +101,21 @@ function PasswordGenerator () {
 			
 		var buf = arr.join('');
 		this.client_random += buf;
+	};
+	
+	this.error = function ( i_mesg ) {
+		alert( 'error : ' + i_mesg );
+		throw i_mesg;
+	}
+	
+	this.expandPwchars = function () {
+		var chars = this.options.pwchars;
+		
+		chars = chars.replace( /0-9/g, '0123456789' );
+		chars = chars.replace( /A-Z/g, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' );
+		chars = chars.replace( /a-z/g, 'abcdefghijklmnopqrstuvwxyz' );		
+		
+		this.options.pwchars = chars;
 	};
 	
 	this.generatePassword = function () {
